@@ -61,10 +61,8 @@ def depth_first_search(initial_state, goal_test):
     parent = {initial_state: initial_state}
     nodes_expanded = 0
     while len(stack) > 0:
-        state = stack.pop()
-        # if (state in expanded):
-        #     continue
         nodes_expanded += 1
+        state = stack.pop()
         expanded.add(state)
         if state == goal_test:
             break
