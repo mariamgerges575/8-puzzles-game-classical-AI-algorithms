@@ -61,8 +61,11 @@ def depth_first_search(initial_state, goal_test):
     parent = {initial_state: initial_state}
     nodes_expanded = 0
     while len(stack) > 0:
-        nodes_expanded += 1
+        # nodes_expanded += 1
         state = stack.pop()
+        if (state in expanded):
+            continue
+        nodes_expanded += 1
         expanded.add(state)
         if state == goal_test:
             break
@@ -77,7 +80,7 @@ def depth_first_search(initial_state, goal_test):
             new_state = change_value(pos, value, state)
             new_state = change_value(new_pos, 0, new_state)
             new_state = change_value(0, new_pos, new_state)
-            if (new_state in expanded) or (new_state in parent):
+            if (new_state in expanded):
                 continue
             parent[new_state] = state
             stack.append(new_state)
@@ -106,15 +109,15 @@ def show_path(parent, goalTest):
     cost = len(answer) - 1
     print(f'Cost = {cost}')
 
+if __name__=='__main__':
+    binary_goal = 0x1012345678
+    board_goal = [[0, 1, 2], [3, 4, 5], [6, 7, 8]]
 
-binary_goal = 0x1012345678
-board_goal = [[0, 1, 2], [3, 4, 5], [6, 7, 8]]
-
-board = input_board()
-time = datetime.datetime.now()
-if solvable(board):
-    depth_first_search(to_binary(board), binary_goal)
-else:
-    print("NOT SOLVABLE")
-running_time = datetime.datetime.now() - time
-print(f'Running Time = {running_time.microseconds} microseconds')
+    board = input_board()
+    time = datetime.datetime.now()
+    if solvable(board):
+        depth_first_search(to_binary(board), binary_goal)
+    else:
+        print("NOT SOLVABLE")
+    running_time = datetime.datetime.now() - time
+    print(f'Running Time = {running_time.microseconds} microseconds')
