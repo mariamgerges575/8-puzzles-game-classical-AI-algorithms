@@ -1,5 +1,7 @@
 from dfs import *
 import queue
+import datetime
+
 def breadth_first_search(initial_state, goal_test):
     frontier =queue.Queue()
     frontier .put(initial_state)
@@ -9,6 +11,7 @@ def breadth_first_search(initial_state, goal_test):
     while frontier.qsize() > 0:
         nodes_expanded += 1
         state = frontier.get()
+        printboard(state)
         expanded.add(state)
         if state == goal_test:
             break
@@ -30,10 +33,11 @@ def breadth_first_search(initial_state, goal_test):
 
     if goal_test not in parent:
         return False
-
+    print("****************************** path from initial state to goal ****************************** ")
     show_path(parent, goal_test)
     print(f'Nodes Expanded = {nodes_expanded}')
-    return True ,get_path(parent, goal_test)
+    path,cost=get_path(parent, goal_test)
+    return True , path,cost
 
 if __name__ == '__main__':
     binary_goal = 0x1012345678

@@ -1,93 +1,5 @@
 import datetime
-
-
-def get_value(position, binary):
-    return binary >> (36 - position * 4) & 0xf
-
-
-def change_value(position, new_value, binary):
-    clear = 0xffffffffff & ~(0xf << (36 - position * 4))
-    set = new_value << (36 - position * 4)
-    return binary & clear | set
-
-
-def to_binary(board):
-    result = 0
-    for row in range(3):
-        for col in range(3):
-            result += board[row][col] << (32 - (row * 3 + col) * 4)
-            if board[row][col] == 0:
-                result += (row * 3 + col + 1) << 36
-    return result
-
-
-def to_board(binary):
-    board = [[0, 1, 2], [3, 4, 5], [6, 7, 8]]
-    for cell in range(9):
-        board[cell // 3][cell % 3] = get_value(cell + 1, binary)
-    return board
-
-
-def input_board():
-    board = []
-    for i in range(3):
-        row = input().split(' ')
-        row2 = []
-        for j in row:
-            row2.append(int(j))
-        board.append(row2)
-
-    return board
-
-
-def solvable(board):
-    prev = []
-    inversions = 0
-    for row in board:
-        for cell in row:
-            if cell == 0:
-                continue
-            for e in prev:
-                if e > cell:
-                    inversions += 1
-            prev.append(cell)
-    if inversions % 2:
-        return False
-    return True
-
-
-def show_path(parent, goalTest):
-    answer = []
-    state = goalTest
-    while parent[state] != state:
-        answer.append(state)
-        state = parent[state]
-    answer.append(state)
-    answer.reverse()
-    for binaryState in answer:
-        boardState = to_board(binaryState)
-        for row in boardState:
-            print(row)
-        print('_' * 50)
-    cost = len(answer) - 1
-    print(f'Cost = {cost}')
-    
-def get_path(parent, goalTest):
-    answer = []
-    state = goalTest
-    while parent[state] != state:
-        answer.append(state)
-        state = parent[state]
-    answer.append(state)
-    answer.reverse()
-    boards=[]
-    for binaryState in answer:
-        boardState = to_board(binaryState)
-        boards.append(boardState)
-    return boards
-    
-
-
+from state_mapping import *
 def depth_first_search(initial_state, goal_test):
     stack = [(initial_state << 20) + 1]
     expanded = set()
@@ -99,6 +11,7 @@ def depth_first_search(initial_state, goal_test):
         depth = state & 0xfffff
         maximum_depth = max(maximum_depth, depth)
         state = state >> 20
+        printboard(state)
         expanded.add(state)
         nodes_expanded += 1
         if state == goal_test:
@@ -122,11 +35,12 @@ def depth_first_search(initial_state, goal_test):
 
     if goal_test not in parent:
         return False
-
+    print("****************************** path from initial state to goal ****************************** ")
     show_path(parent, goal_test)
     print(f'Nodes Expanded = {nodes_expanded}')
     print(f'Search Depth = {maximum_depth}')
-    return True ,get_path(parent,goal_test)
+    path,cost=get_path(parent, goal_test)
+    return True , path,cost
 
 
 
@@ -137,7 +51,7 @@ if  __name__ == '__main__':
     board = input_board()
     time = datetime.datetime.now()
     if solvable(board):
-        bol,path=depth_first_search(to_binary(board), binary_goal)
+        bol,path,cost=depth_first_search(to_binary(board), binary_goal)
         
     else:
         print("NOT SOLVABLE")
