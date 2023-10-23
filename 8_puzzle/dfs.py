@@ -71,6 +71,21 @@ def show_path(parent, goalTest):
         print('_' * 50)
     cost = len(answer) - 1
     print(f'Cost = {cost}')
+    
+def get_path(parent, goalTest):
+    answer = []
+    state = goalTest
+    while parent[state] != state:
+        answer.append(state)
+        state = parent[state]
+    answer.append(state)
+    answer.reverse()
+    boards=[]
+    for binaryState in answer:
+        boardState = to_board(binaryState)
+        boards.append(boardState)
+    return boards
+    
 
 
 def depth_first_search(initial_state, goal_test):
@@ -111,17 +126,20 @@ def depth_first_search(initial_state, goal_test):
     show_path(parent, goal_test)
     print(f'Nodes Expanded = {nodes_expanded}')
     print(f'Search Depth = {maximum_depth}')
-    return True
+    return True ,get_path(parent,goal_test)
 
 
-binary_goal = 0x1012345678
-board_goal = [[0, 1, 2], [3, 4, 5], [6, 7, 8]]
 
-board = input_board()
-time = datetime.datetime.now()
-if solvable(board):
-    depth_first_search(to_binary(board), binary_goal)
-else:
-    print("NOT SOLVABLE")
-running_time = datetime.datetime.now() - time
-print(f'Running Time = {running_time.microseconds} microseconds')
+if  __name__ == '__main__':
+    binary_goal = 0x1012345678
+    board_goal = [[0, 1, 2], [3, 4, 5], [6, 7, 8]]
+
+    board = input_board()
+    time = datetime.datetime.now()
+    if solvable(board):
+        bol,path=depth_first_search(to_binary(board), binary_goal)
+        
+    else:
+        print("NOT SOLVABLE")
+    running_time = datetime.datetime.now() - time
+    print(f'Running Time = {running_time.microseconds} microseconds')
