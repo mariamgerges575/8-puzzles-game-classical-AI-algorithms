@@ -9,7 +9,7 @@ def get_manhattan_value(x1,x2,y1,y2):
     return abs(x1-x2)+abs(y1-y2)
 
 def get_euclidean_value(x1,x2,y1,y2):
-    return sqrt(((abs(x1-x2)**2)) + (y1-y2)**2)
+    return sqrt(((abs(x1-x2)**2)) + ((y1-y2)**2))
 
 def get_heuristic(state,H):
     sum = 0
@@ -20,21 +20,48 @@ def get_heuristic(state,H):
         sum += H(x1,x2,y1,y2)
     return sum
 
-def A_Search(initial_state, goal_test,H):
+# def show_path_H(state):
+
+    
+#     boardState = to_board(state)
+#     for row in boardState:
+#         print(row)
+#     print('_' * 50)
+
+def show_path(parent, goalTest):
+    answer = []
+    state = goalTest
+    while (parent[state])[0] != state:
+        answer.append(state)
+        state = (parent[state])[0]
+    answer.append(state)
+    answer.reverse()
+    for binaryState in answer:
+        boardState = to_board(binaryState)
+        for row in boardState:
+            print(row)
+        print('_' * 50)
+    cost = len(answer) - 1
+    print(f'Cost = {cost}')
+
+def A_Search(initial_state, goal_test,H,type):
     pq = PriorityQueue()
-    pq.push((H(initial_state)+1,(initial_state<<20)+1))
+    pq.push((H(initial_state,type)+1,(initial_state<<20)+1))
     expanded = set()
     parent = {initial_state: (initial_state,1)}
     nodes_expanded = 0
     maximum_depth = 1
     while len(pq.elements) > 0:
         state = pq.pop()
+        state = state[1]
+        # print(state)
         if (state in expanded):
             continue
         depth = state & 0xfffff
         maximum_depth = max(maximum_depth, depth)
         state = state >> 20
         expanded.add(state)
+        # show_path_H(state)
         nodes_expanded += 1
         if state == goal_test:
             break
@@ -59,11 +86,12 @@ def A_Search(initial_state, goal_test,H):
             # lw heya gededa 77othaaa 3latol
             if (new_state not in parent):
                 # awel mra t3dy 3laayaaaaa
-                pq.push((H(new_state)+depth+1,((new_state << 20) | depth+1)))
+                pq.push((H(new_state,type)+depth+1,((new_state << 20) | depth+1)))
+                parent[new_state]=(state,depth+1)
 
             elif (depth+1< parent[new_state][1]):
                 parent[new_state]=(state,depth+1)
-                pq.push((H(new_state)+depth+1,((new_state << 20) | depth+1)))
+                pq.push((H(new_state,type)+depth+1,((new_state << 20) | depth+1)))
 
 
     if goal_test not in parent:
@@ -83,7 +111,7 @@ if __name__=='__main__':
     time = datetime.datetime.now()
     if solvable(board):
         initial_state = to_binary(board)
-        A_Search(initial_state, binary_goal,get_heuristic(initial_state,get_manhattan_value))
+        A_Search(initial_state, binary_goal,get_heuristic,get_manhattan_value)
     else:
         print("NOT SOLVABLE")
     running_time = datetime.datetime.now() - time
