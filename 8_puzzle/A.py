@@ -11,6 +11,15 @@ def get_manhattan_value(x1,x2,y1,y2):
 def get_euclidean_value(x1,x2,y1,y2):
     return sqrt(((abs(x1-x2)**2)) + (y1-y2)**2)
 
+def get_heuristic(state,H):
+    sum = 0
+    for i in range(1,10):
+        value = get_value(i,state)
+        x1,y1 = get_index(value)
+        x2,y2 = get_index(i-1)
+        sum += H(x1,x2,y1,y2)
+    return sum
+
 def A_Search(initial_state, goal_test,H):
     pq = PriorityQueue()
     pq.push((H(initial_state)+1,(initial_state<<20)+1))
@@ -73,7 +82,8 @@ if __name__=='__main__':
     board = input_board()
     time = datetime.datetime.now()
     if solvable(board):
-        depth_first_search(to_binary(board), binary_goal)
+        initial_state = to_binary(board)
+        A_Search(initial_state, binary_goal,get_heuristic(initial_state,get_manhattan_value))
     else:
         print("NOT SOLVABLE")
     running_time = datetime.datetime.now() - time
@@ -86,14 +96,7 @@ if __name__=='__main__':
 
 
 
-def get_heuristic_manhattan(state,H):
-    sum = 0
-    for i in range(1,10):
-        value = get_value(i,state)
-        x1,y1 = get_index(value)
-        x2,y2 = get_index(i-1)
-        sum += H(x1,x2,y1,y2)
-    return sum
+
 
 
 
@@ -102,6 +105,6 @@ if __name__=='__main__':
     #test manhatten ==16
     print(1)
     # print(get_heuristic_manhattan(0x1128456703,get_manhattan_value))
-    print(get_heuristic_manhattan(0x1128456703,get_euclidean_value))
+    print(get_heuristic(0x1128456703,get_euclidean_value))
 
 
