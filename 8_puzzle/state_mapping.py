@@ -84,6 +84,21 @@ def get_path(parent, goalTest):
         boards.append(boardState)
     cost = len(answer) - 1
     return boards,cost
+
+def get_path_H(parent, goalTest):
+    answer = []
+    state = goalTest
+    while parent[state][0] != state:
+        answer.append(state)
+        state = parent[state][0]
+    answer.append(state)
+    answer.reverse()
+    boards=[]
+    for binaryState in answer:
+        boardState = to_board(binaryState)
+        boards.append(boardState)
+    cost = len(answer) - 1
+    return boards,cost
     
 def printboard(state):
     board=to_board(state)
