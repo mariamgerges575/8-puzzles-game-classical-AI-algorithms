@@ -11,7 +11,7 @@ def breadth_first_search(initial_state, goal_test):
     while frontier.qsize() > 0:
         nodes_expanded += 1
         state = frontier.get()
-        printboard(state)
+        # printboard(state)
         expanded.add(state)
         if state == goal_test:
             break
@@ -32,7 +32,7 @@ def breadth_first_search(initial_state, goal_test):
             frontier.put(new_state)
 
     if goal_test not in parent:
-        return False
+        return False,None,None,nodes_expanded
     print("****************************** path from initial state to goal ****************************** ")
     show_path(parent, goal_test)
     path,cost=get_path(parent, goal_test)

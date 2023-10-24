@@ -96,13 +96,12 @@ def A_Search(initial_state, goal_test,H,type):
 
 
     if goal_test not in parent:
-        return False
+        return False ,None,None,nodes_expanded,maximum_depth
 
     show_path(parent, goal_test)
-    print(f'Nodes Expanded = {nodes_expanded}')
-    print(f'Search Depth = {maximum_depth}')
     path,cost=get_path_H(parent, goal_test)
-    return True , path,cost
+    return True , path,cost ,nodes_expanded,maximum_depth
+ 
 
 if __name__=='__main__':
 
