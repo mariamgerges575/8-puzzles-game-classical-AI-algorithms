@@ -11,7 +11,7 @@ def depth_first_search(initial_state, goal_test):
         depth = state & 0xfffff
         maximum_depth = max(maximum_depth, depth)
         state = state >> 20
-        printboard(state)
+        # printboard(state)
         expanded.add(state)
         nodes_expanded += 1
         if state == goal_test:
