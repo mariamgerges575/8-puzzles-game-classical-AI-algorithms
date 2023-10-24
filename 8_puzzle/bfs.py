@@ -33,8 +33,8 @@ def breadth_first_search(initial_state, goal_test):
 
     if goal_test not in parent:
         return False,None,None,nodes_expanded
-    print("****************************** path from initial state to goal ****************************** ")
-    show_path(parent, goal_test)
+    # print("****************************** path from initial state to goal ****************************** ")
+    # show_path(parent, goal_test)
     path,cost=get_path(parent, goal_test)
     return True , path,cost,nodes_expanded
 

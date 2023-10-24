@@ -54,20 +54,23 @@ def solvable(board):
     return True
 
 
-def show_path(parent, goalTest):
-    answer = []
-    state = goalTest
-    while parent[state] != state:
-        answer.append(state)
-        state = parent[state]
-    answer.append(state)
-    answer.reverse()
-    for binaryState in answer:
-        boardState = to_board(binaryState)
-        for row in boardState:
-            print(row)
-        print('_' * 50)
-    
+# def show_path(parent, goalTest):
+#     answer = []
+#     state = goalTest
+#     while parent[state] != state:
+#         answer.append(state)
+#         state = parent[state]
+#     answer.append(state)
+#     answer.reverse()
+#     for binaryState in answer:
+#         boardState = to_board(binaryState)
+#         for row in boardState:
+#             print(row)
+#         print('_' * 50)
+def show_path(state):
+    for board in state:
+        printboard(board)
+        print('_' * 50)   
     
     
 def get_path(parent, goalTest):
