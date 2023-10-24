@@ -1,6 +1,7 @@
 # import dfs as help
 from math import sqrt
 from dfs import *
+from state_mapping import*
 from priorityQueue import PriorityQueue
 def get_index(value):
     return int(value/3),value%3

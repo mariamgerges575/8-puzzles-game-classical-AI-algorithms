@@ -15,15 +15,18 @@ board = input_board()
 if solvable(board):
     if(algorithm=='1'):
         time = datetime.datetime.now()
-        boolean,path,cost=depth_first_search(to_binary(board), binary_goal)
+        boolean,path,cost,nodes_expanded,maximum_depth=depth_first_search(to_binary(board), binary_goal)
         running_time = datetime.datetime.now() - time
         print(f'Cost = {cost}')
+        print(f'Nodes Expanded = {nodes_expanded}')
+        print(f'Search Depth = {maximum_depth}')
         print(f'Running Time = {running_time.microseconds} microseconds')
     elif(algorithm=='2'):
         time = datetime.datetime.now()
-        boolean,path,cost=breadth_first_search(to_binary(board), binary_goal)
+        boolean,path,cost,nodes_expanded=breadth_first_search(to_binary(board), binary_goal)
         running_time = datetime.datetime.now() - time
         print(f'Cost = {cost}')
+        print(f'Nodes Expanded = {nodes_expanded}')
         print(f'Running Time = {running_time.microseconds} microseconds')
     elif(algorithm=='3'):
         print('1- manhattan')

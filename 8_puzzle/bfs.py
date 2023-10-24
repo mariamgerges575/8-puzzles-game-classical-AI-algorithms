@@ -26,7 +26,7 @@ def breadth_first_search(initial_state, goal_test):
             new_state = change_value(pos, value, state)
             new_state = change_value(new_pos, 0, new_state)
             new_state = change_value(0, new_pos, new_state)
-            if (new_state in expanded) or (new_state in parent):
+            if new_state in parent:
                 continue
             parent[new_state] = state
             frontier.put(new_state)
@@ -35,9 +35,8 @@ def breadth_first_search(initial_state, goal_test):
         return False
     print("****************************** path from initial state to goal ****************************** ")
     show_path(parent, goal_test)
-    print(f'Nodes Expanded = {nodes_expanded}')
     path,cost=get_path(parent, goal_test)
-    return True , path,cost
+    return True , path,cost,nodes_expanded
 
 if __name__ == '__main__':
     binary_goal = 0x1012345678
