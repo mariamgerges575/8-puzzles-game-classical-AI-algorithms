@@ -100,7 +100,8 @@ def A_Search(initial_state, goal_test,H,type):
     show_path(parent, goal_test)
     print(f'Nodes Expanded = {nodes_expanded}')
     print(f'Search Depth = {maximum_depth}')
-    return True
+    path,cost=get_path_H(parent, goal_test)
+    return True , path,cost
 
 if __name__=='__main__':
 
