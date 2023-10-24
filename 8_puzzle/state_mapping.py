@@ -67,9 +67,10 @@ def solvable(board):
 #         for row in boardState:
 #             print(row)
 #         print('_' * 50)
-def show_path(state):
-    for board in state:
-        printboard(board)
+def show_path(path):
+    for board in path:
+        for row in board:
+            print(row)
         print('_' * 50)   
     
     

@@ -29,21 +29,21 @@ def get_heuristic(state,H):
 #         print(row)
 #     print('_' * 50)
 
-def show_path(parent, goalTest):
-    answer = []
-    state = goalTest
-    while (parent[state])[0] != state:
-        answer.append(state)
-        state = (parent[state])[0]
-    answer.append(state)
-    answer.reverse()
-    for binaryState in answer:
-        boardState = to_board(binaryState)
-        for row in boardState:
-            print(row)
-        print('_' * 50)
-    cost = len(answer) - 1
-    print(f'Cost = {cost}')
+# def show_path(parent, goalTest):
+#     answer = []
+#     state = goalTest
+#     while (parent[state])[0] != state:
+#         answer.append(state)
+#         state = (parent[state])[0]
+#     answer.append(state)
+#     answer.reverse()
+#     for binaryState in answer:
+#         boardState = to_board(binaryState)
+#         for row in boardState:
+#             print(row)
+#         print('_' * 50)
+#     cost = len(answer) - 1
+#     print(f'Cost = {cost}')
 
 def A_Search(initial_state, goal_test,H,type):
     pq = PriorityQueue()
@@ -98,7 +98,7 @@ def A_Search(initial_state, goal_test,H,type):
     if goal_test not in parent:
         return False ,None,None,nodes_expanded,maximum_depth
 
-    show_path(parent, goal_test)
+    # show_path(parent, goal_test)
     path,cost=get_path_H(parent, goal_test)
     return True , path,cost ,nodes_expanded,maximum_depth
  

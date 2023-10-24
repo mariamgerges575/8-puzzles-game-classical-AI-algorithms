@@ -69,56 +69,56 @@ else:
     
 ################################# without solvable function ##############################
 
-if(algorithm=='1'):
-        time = datetime.datetime.now()
-        boolean,path,cost,nodes_expanded,maximum_depth=depth_first_search(to_binary(board), binary_goal)
-        running_time = datetime.datetime.now() - time
-        if(boolean):
-            print("****************************** path from initial state to goal ****************************** ")
-            show_path(path)
-            print(f'Cost = {cost}')
-        else: print("NOT SOLVABLE")
-        print(f'Nodes Expanded = {nodes_expanded}')
-        print(f'Search Depth = {maximum_depth}')
-        print(f'Running Time = {running_time.microseconds} microseconds')
-elif(algorithm=='2'):
-    time = datetime.datetime.now()
-    boolean,path,cost,nodes_expanded=breadth_first_search(to_binary(board), binary_goal)
-    running_time = datetime.datetime.now() - time
-    if(boolean):
-        print("****************************** path from initial state to goal ****************************** ")
-        show_path(path)
-        print(f'Cost = {cost}')
-    else: print("NOT SOLVABLE")
-    print(f'Nodes Expanded = {nodes_expanded}')
-    print(f'Running Time = {running_time.microseconds} microseconds')
-elif(algorithm=='3'):
-    print('1- manhattan')
-    print('2- euclidean')
-    type = input('')
-    if type=='1':
-        time = datetime.datetime.now()
-        boolean,path,cost,nodes_expanded,maximum_depth=A_Search(to_binary(board), binary_goal,get_heuristic,get_manhattan_value)
-        running_time = datetime.datetime.now() - time
-        if(boolean):
-            print("****************************** path from initial state to goal ****************************** ")
-            show_path(path)
-            print(f'Cost = {cost}')
-        else: print("NOT SOLVABLE")
-        print(f'Nodes Expanded = {nodes_expanded}')
-        print(f'Search Depth = {maximum_depth}')
-        print(f'Running Time = {running_time.microseconds} microseconds')
-    else:
-        time = datetime.datetime.now()
-        boolean,path,cost,nodes_expanded,maximum_depth=A_Search(to_binary(board), binary_goal,get_heuristic,get_euclidean_value)
-        running_time = datetime.datetime.now() - time
-        if(boolean):
-            print("****************************** path from initial state to goal ****************************** ")
-            show_path(path)
-            print(f'Cost = {cost}')
-        else: print("NOT SOLVABLE")
-        print(f'Nodes Expanded = {nodes_expanded}')
-        print(f'Search Depth = {maximum_depth}')
-        print(f'Running Time = {running_time.microseconds} microseconds')
+# if(algorithm=='1'):
+#         time = datetime.datetime.now()
+#         boolean,path,cost,nodes_expanded,maximum_depth=depth_first_search(to_binary(board), binary_goal)
+#         running_time = datetime.datetime.now() - time
+#         if(boolean):
+#             print("****************************** path from initial state to goal ****************************** ")
+#             show_path(path)
+#             print(f'Cost = {cost}')
+#         else: print("NOT SOLVABLE")
+#         print(f'Nodes Expanded = {nodes_expanded}')
+#         print(f'Search Depth = {maximum_depth}')
+#         print(f'Running Time = {running_time.microseconds} microseconds')
+# elif(algorithm=='2'):
+#     time = datetime.datetime.now()
+#     boolean,path,cost,nodes_expanded=breadth_first_search(to_binary(board), binary_goal)
+#     running_time = datetime.datetime.now() - time
+#     if(boolean):
+#         print("****************************** path from initial state to goal ****************************** ")
+#         show_path(path)
+#         print(f'Cost = {cost}')
+#     else: print("NOT SOLVABLE")
+#     print(f'Nodes Expanded = {nodes_expanded}')
+#     print(f'Running Time = {running_time.microseconds} microseconds')
+# elif(algorithm=='3'):
+#     print('1- manhattan')
+#     print('2- euclidean')
+#     type = input('')
+#     if type=='1':
+#         time = datetime.datetime.now()
+#         boolean,path,cost,nodes_expanded,maximum_depth=A_Search(to_binary(board), binary_goal,get_heuristic,get_manhattan_value)
+#         running_time = datetime.datetime.now() - time
+#         if(boolean):
+#             print("****************************** path from initial state to goal ****************************** ")
+#             show_path(path)
+#             print(f'Cost = {cost}')
+#         else: print("NOT SOLVABLE")
+#         print(f'Nodes Expanded = {nodes_expanded}')
+#         print(f'Search Depth = {maximum_depth}')
+#         print(f'Running Time = {running_time.microseconds} microseconds')
+#     else:
+#         time = datetime.datetime.now()
+#         boolean,path,cost,nodes_expanded,maximum_depth=A_Search(to_binary(board), binary_goal,get_heuristic,get_euclidean_value)
+#         running_time = datetime.datetime.now() - time
+#         if(boolean):
+#             print("****************************** path from initial state to goal ****************************** ")
+#             show_path(path)
+#             print(f'Cost = {cost}')
+#         else: print("NOT SOLVABLE")
+#         print(f'Nodes Expanded = {nodes_expanded}')
+#         print(f'Search Depth = {maximum_depth}')
+#         print(f'Running Time = {running_time.microseconds} microseconds')
 
 
